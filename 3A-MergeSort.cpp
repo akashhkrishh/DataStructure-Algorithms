@@ -32,7 +32,7 @@ void merge(int array[], int left, int mid, int right){
 		i++; k++;
  }
     while(j<nr) {  
-        array[k] = rarr[j];
+        array[k] = rarr[j]; 
         j++; k++;
  }
 }
