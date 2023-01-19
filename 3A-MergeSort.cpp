@@ -54,7 +54,7 @@ int main() {
  	for(int i = 0; i<n; i++) {
  		cin >> arr[i];
  	}
- 	cout << "Array before Sorting: ";-
+ 	cout << "Array before Sorting: ";
  	display(arr, n);
  	mergeSort(arr, 0, n-1); 
 	cout << "Array after Sorting: ";
