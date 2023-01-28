@@ -1,79 +1,48 @@
-#include <bits/stdc++.h>
-// Prim's Algorithm in C++
-
+#include<bits/stdc++.h>
 using namespace std;
+#define V 5	 
 
-#define INF 9999999
-
-// number of vertices in grapj
-#define V 5
-
-// create a 2d array of size 5x5
-//for adjacency matrix to represent graph
-
-int G[V][V] = {
-  {0, 9, 75, 0, 0},
-  {9, 0, 95, 19, 42},
-  {75, 95, 0, 51, 66},
-  {0, 19, 51, 0, 31},
-  {0, 42, 66, 31, 0}};
-
-int main() {
-  int no_edge;  // number of edge
-
-  // create a array to track selected vertex
-  // selected will become true otherwise false
-  int selected[V];
-
-  // set selected false initially
-  memset(selected, false, sizeof(selected));
-
-  // set number of edge to 0
-  no_edge = 0;
-
-  // the number of egde in minimum spanning tree will be
-  // always less than (V -1), where V is number of vertices in
-  //graph
-
-  // choose 0th vertex and make it true
-  selected[0] = true;
-
-  int x;  //  row number
-  int y;  //  col number
-
-  // print for edge and weight
-  cout << "Edge"
-     << " : "
-     << "Weight";
-  cout << endl;
-  while (no_edge < V - 1) {
-    //For every vertex in the set S, find the all adjacent vertices
-    // , calculate the distance from the vertex selected at step 1.
-    // if the vertex is already in the set S, discard it otherwise
-    //choose another vertex nearest to selected vertex  at step 1.
-
-    int min = INF;
-    x = 0;
-    y = 0;
-
-    for (int i = 0; i < V; i++) {
-      if (selected[i]) {
-        for (int j = 0; j < V; j++) {
-          if (!selected[j] && G[i][j]) {  // not in selected and there is an edge
-            if (min > G[i][j]) {
-              min = G[i][j];
-              x = i;
-              y = j;
-            }
-          }
+int selectmin(vector<int>& value,vector<bool>& setMST){
+    int min=INT_MAX;
+    int vertex;
+    for(int i=0;i<V;i++){
+        if(setMST[i]==false && min>value[i]){
+            vertex=i;
+            min=value[i];
         }
-      }
     }
-    cout << x << " - " << y << " :  " << G[x][y];
-    cout << endl;
-    selected[y] = true;
-    no_edge++;
-  }
+    return vertex;
+}
 
-  return 0;
+void findMST(int graph[V][V]){
+    int parent[V];
+    vector<int> value(V,INT_MAX);
+    vector<bool> setMST(V,false);
+    parent[0]=-1;
+    value[0]=0;
+    
+    for(int i=0;i<V-1;i++){
+        int U = selectmin(value,setMST);
+		setMST[U] = true;	          
+		for(int j=0;j<V;j++){
+		    if(graph[U][j]!=0 && setMST[j]==false && graph[U][j]<value[j]){
+				value[j] = graph[U][j];
+				parent[j] = U;
+			}
+		}
+	}
+	cout <<"Edge"<< "   : "<< "Weight\n";;
+    for(int i=1;i<V;i++){
+        cout<<parent[i]<<" -> "<<i<<" :   "<<graph[parent[i]][i]<<"\n";
+	}
+}
+int main(){
+	int graph[V][V] = {{0, 9, 75, 0, 0},
+	                   {9, 0, 95, 19, 42},
+	                   {75, 95, 0, 51, 66},
+	                   {0, 19, 51, 0, 31},
+                       {0, 42, 66, 31, 0}};
+
+	findMST(graph);	
+	return 0;
 }
