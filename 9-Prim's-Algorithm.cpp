@@ -31,7 +31,7 @@ void findMST(int graph[V][V]){
 			}
 		}
 	}
-	cout <<"Edge"<< "   : "<< "Weight\n";;
+    cout <<"Edge"<< "   : "<< "Weight\n";;
     for(int i=1;i<V;i++){
         cout<<parent[i]<<" -> "<<i<<" :   "<<graph[parent[i]][i]<<"\n";
 	}
