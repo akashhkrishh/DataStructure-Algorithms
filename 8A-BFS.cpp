@@ -1,5 +1,3 @@
-// BFS algorithm in C++
-
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -15,20 +13,19 @@ class Graph {
   void BFS(int startVertex);
 };
 
-// Create a graph with given vertices,
-// and maintain an adjacency list
+
 Graph::Graph(int vertices) {
   numVertices = vertices;
   adjLists = new list<int>[vertices];
 }
 
-// Add edges to the graph
+
 void Graph::addEdge(int src, int dest) {
   adjLists[src].push_back(dest);
   adjLists[dest].push_back(src);
 }
 
-// BFS algorithm
+
 void Graph::BFS(int startVertex) {
   visited = new bool[numVertices];
   for (int i = 0; i < numVertices; i++)
